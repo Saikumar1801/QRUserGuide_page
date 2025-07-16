@@ -1,0 +1,273 @@
+
+@media only screen and (min-width:960px){
+    main>aside{
+        margin-top: 72px;
+        text-align: center;
+        font-size: 0; line-height: 0;
+    }
+
+    #slide p{
+        margin: 40px auto 100px auto;
+        width: 240px; height: 240px;
+        background-color: #fff;
+        color: #333; font-size: 18px;
+        text-align: center;
+        box-shadow: 5px 5px 6px rgba(169, 169, 169, 0.219);
+        border: 20px solid #fff;
+        border-radius: 10px;
+    }
+    #slide>div img{
+        width: 240px;
+    }
+    
+    #slide button{
+        width: 50px; height: 50px;
+        border: none;
+        border-radius: 100px;
+        font-size: 0;
+        z-index: 100;
+    }
+    #slide button:nth-child(1){
+        position: absolute;
+        top: 40%; left: -50px;
+        z-index: 8;
+        background-color: rgba(169, 169, 169, 0.219);
+    }
+    #slide button:nth-of-type(2){
+        position: absolute;
+        top: 40%; right: -50px;
+        background-color: rgba(169, 169, 169, 0.219);
+    }
+    #slide button::before{
+        font-family: 'xeicon';
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 40px;
+        cursor: pointer;
+    }
+}
+@media only screen and (max-width:959px){
+    main>aside{
+        margin-top: 56px;
+        text-align: center;
+        font-size: 0; line-height: 0;
+    }
+    .print>.print_all>.print_top{
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    #slide p{
+        margin: 40px auto 100px auto;
+        width: 170px; height: 170px;
+        background-color: #fff;
+        color: #333; font-size: 14px;
+        text-align: center;
+        box-shadow: 5px 5px 6px rgba(169, 169, 169, 0.219);
+        border: 6px solid #fff;
+        border-radius: 4px;
+    }
+    #slide>div img{
+        width: 170px;
+    }
+    #slide button{
+        width: 28px; height: 28px;
+        border: none;
+        border-radius: 100px;
+        font-size: 0;
+        z-index: 100;
+    }
+    #slide button:nth-child(1){
+        position: absolute;
+        top: 36%; left: -40px;
+        z-index: 8;
+        background-color: rgba(169, 169, 169, 0.219);
+    }
+    #slide button:nth-of-type(2){
+        position: absolute;
+        top: 36%; right: -40px;
+        background-color: rgba(169, 169, 169, 0.219);
+    }
+    #slide button::before{
+        font-family: 'xeicon';
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 20px;
+        cursor: pointer;
+    }
+}
+
+
+
+main{}
+main>aside>img{
+    width: 100%;
+}
+main>div{
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+}
+.title{
+    margin: 0 auto;
+    padding-top: 10px;
+    width: 600px; height: 30px;
+    background-color: #fff;
+    border: 1px solid #7070706c;
+    box-shadow: 0px 3px 6px rgba(169, 169, 169, 0.219);
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'NeusaNext';
+    font-size: 24px;
+}
+.title:first-of-type{
+    margin-top: -30px;
+}
+.title:nth-of-type(2){
+    position: relative;
+    margin-bottom: -30px;
+}
+.title:nth-of-type(3){
+    margin-top: -20px;
+}
+.title:nth-of-type(4){
+    margin: 30px auto;
+}
+
+.intro{
+    margin: 60px 0 40px 0;
+}
+.intro>img{
+    width: 100%;
+}
+
+.how{
+    background-color: #cccccc;
+}
+.how>img{
+    margin: 80px 0;
+    width: 100%;
+}
+
+.print{
+    margin-top: 20px;
+}
+.print>p{
+    text-align: center;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 20px;
+    flex-wrap: wrap;
+    width: 90%;
+}
+.print>p:last-of-type{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}
+.print>p>img{
+    margin: 0 2px;
+    width: 30px; height: 30px;
+}
+h4{
+    margin: 20px 0;
+    font-weight: bold;
+}
+.print>.print_all{
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.print>.print_all img{
+    width: 160px;
+}
+.print>.print_all>.print_top{
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+.print>.print_all>.print_top p{
+    text-align: center;
+    margin: 10px 0;
+}
+.print>.print_all>.print_top>div{
+    display: flex;
+    flex-direction: column;
+}
+.print>.print_all>.print_top .printTop_img{
+    display: flex;
+}
+
+.print>.print_all>.print_bottom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 960px;
+}
+.print>.print_all>.print_bottom>.samsung{
+    margin: 40px 0;
+}
+.print>.print_all>.print_bottom>div{
+    text-align: center;
+}
+.print>.print_all>.print_bottom>div>img:last-of-type{
+    margin-left: 100px;
+}
+.print>.print_all>.print_bottom>div>p{
+    margin: 20px 0;
+}
+.print>.print_all>p{
+    width: 880px;
+    text-align: end;
+    color: #757575;
+}
+
+    /************************** color_box **************************/
+    .print>.print_all>.print_bottom>div>div{
+        display: flex;
+        width: 100vw;
+        margin-bottom: -135px;
+    }
+    .print>.print_all>.print_bottom>.samsung>.color_blue>span{
+        display: block;
+        z-index: -1;
+        position: relative;
+        top: -270px;
+        width: 80%; height: 180px;
+        background-color: rgb(12, 77, 161, .5);
+    }
+    .print>.print_all>.print_bottom>.prugio>.color_green{
+        justify-content: end;
+    }
+    .print>.print_all>.print_bottom>.prugio>.color_green>span{
+        display: block;
+        z-index: -1;
+        position: relative;
+        top: -270px;
+        width: 80%; height: 180px;
+        background-color: rgb(7, 79, 81, .5);
+    }
+    /************************** color_box_end **************************/
+
+#slide{
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+}
+#slide a{
+    text-decoration: none;
+}
+
+#slide button:nth-child(1)::before{content: "\e93c";}
+#slide button:nth-of-type(2)::before{content: "\e93f";}
+
+.event{
+    position: fixed;
+    bottom: 40px; right: 20px;
+}
+.event img{
+    width: 90px;
+}

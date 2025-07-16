@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <title>QR 알리미 사용하기 통합 가이드</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=NanumSquare:wght@300;400;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=KoPubDotum:wght@300;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Consolas:wght@700&display=swap" />
+    <style>
+        /* 1. GLOBAL & LAYOUT STYLES */
+        body {
+            margin: 0;
+            line-height: normal;
+            font-family: 'NanumSquare', sans-serif;
+            background-color: #f9f9f9; /* Set main background to grey */
+        }
+
+        .container-wrapper {
+            width: 100%;
+            position: relative;
+            background-color: #fff; /* Set container background to white */
+        }
+
+        /* This is no longer needed as the body handles the grey background */
+        .background-layer {
+           display: none;
+        }
+
+        /* 2. HEADER & FOOTER STYLES */
+        .header, .footer {
+            width: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+        .header-inner, .footer-content {
+            width: 1024px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .header { border-bottom: 0px solid #dcdcdc; height: 64px; }
+        .logo-container { display: flex; align-items: center; gap: 5px; }
+        .logo-container img:first-child { width: 26px; }
+        .logo-container img:last-child { width: 65px; }
+        .nav-menu { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+        .nav-item { color: rgba(0, 0, 0, 0.5); cursor: pointer; }
+        .nav-item.active { color: #000; font-weight: 800; }
+        .nav-divider { color: rgba(0, 0, 0, 0.4); }
+        .menu-icon { width: 32px; height: 32px; }
+        
+        .sub-header {
+            background-color: rgba(0, 0, 0, 0.9);
+            height: 50px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+        .sub-header-inner {
+            width: 1024px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            font-size: 16px;
+        }
+        .sub-nav-item { cursor: pointer; font-weight: 700; }
+        .sub-nav-item.active { color: #fae100; font-weight: 800; }
+
+        .footer { border-top: 1px solid #dcdcdc; padding: 50px 0; color: #585858; font-size: 12px; }
+        .footer-content { align-items: flex-start; }
+        .company-info { display: flex; flex-direction: column; gap: 8px; }
+        .info-row, .contact-row { display: flex; flex-wrap: wrap; gap: 16px; }
+        .info-item { padding-right: 16px; border-right: 1px solid #b9b9b9; }
+        .info-item:last-child { border-right: none; }
+        .footer-links { display: flex; gap: 24px; font-size: 14px; font-weight: bold; color: #222; }
+
+        /* 3. MAIN CONTENT & SECTION STYLING */
+        .main-content-area {
+            position: relative;
+            z-index: 1;
+            padding: 0 0 50px 0; /* Adjusted padding */
+            background-color: #f9f9f9; /* Main content area is grey */
+        }
+        .content-section {
+            display: none; /* All sections hidden by default */
+            width: 1024px;
+            margin: 0 auto;
+            padding-top: 50px; /* Add padding to space from global title */
+        }
+        .content-section.active {
+            display: block; /* Show only active section */
+        }
+        .section-title-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 0; /* Adjusted margin */
+            position: relative;
+            z-index: 1; 
+            padding-top: 64px;
+            padding-bottom: 50px; /* Add top padding */
+            background-color: #fff; /* Ensure title area is grey */
+        }
+        .section-title { font-size: 30px; font-weight: 800; }
+
+        .guide-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 73px;
+            padding-bottom: 18px;
+            gap: 92px;
+        }
+
+        /* 4. GUIDE COMPONENTS (COMMON STYLES) */
+        .guide-title {
+            border-radius: 99px;
+            background-color: #fae100;
+            padding: 12px 32px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #000;
+            text-align: center;
+        }
+        .steps-wrapper { display: flex; gap: 42px; }
+        .step-indicators { position: relative; width: 27px; }
+        .step-line { position: absolute; left: 12px; width: 2px; background-color: #fae100; z-index: 1; }
+        .step-indicator {
+            position: relative;
+            width: 27px;
+            height: 27px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fae100;
+            background-color: #fff; /* Changed to white to stand out */
+            color: #fae100;
+            font-family: 'KoPubDotum', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .step-indicator.active { background-color: #fae100; color: #fff; margin-left: 0px;  }
+        
+        .video-link {
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 7px;
+            background-color: #fff; /* Changed to white to stand out */
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            gap: 10px;
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* 5. SECTION-SPECIFIC STYLES */
+
+        /* == SECTION 1: APP INSTALL == */
+        #section-app-install .guide-left { width: 388px; display: flex; flex-direction: column; align-items: center; gap: 70px; }
+        #section-app-install .step-line { top: 38px; height: 500px; }
+        #section-app-install .step-indicator { position: absolute; left: 0; }
+        #section-app-install .step-indicator[data-step="1"] { top: 35px; }
+        #section-app-install .step-indicator[data-step="2"] { top: 120px; }
+        #section-app-install .step-indicator[data-step="3"] { top: 215px; }
+        #section-app-install .step-indicator[data-step="4"] { top: 300px; }
+        #section-app-install .step-indicator[data-step="5"] { top: 520px; }
+        #section-app-install .instruction-item { padding: 30px; position: relative; line-height: 30px; font-size: 18px; font-weight: 800; color: #999; cursor: pointer; }
+        #section-app-install .instruction-item .speech-bubble { display: none !important; } 
+        #section-app-install .sub-instructions { padding-left: 15px; margin-top: 10px; }
+        #section-app-install .sub-instruction-item.active { color: #000; }
+        #section-app-install .guide-right { width: 450px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        #section-app-install .image-display { width: 100%; height: 600px; position: relative; }
+        #section-app-install .step-image { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: none; }
+        #section-app-install .step-image.active { display: block; }
+        #section-app-install .image-annotation { position: absolute; font-size: 16px; color: #000; font-weight: 700; text-align: center; display: none; }
+        #section-app-install .image-annotation.active { display: block; }
+        #annotation-4-1 { width: 334px; top: 153px; left: 57px; }
+        #annotation-4-2 { width: 250px; top: 153px; left: 99px; }
+
+        /* == SECTION 2: COUPON REGISTRATION == */
+        #section-coupon .guide-container { flex-direction: row; } 
+        #section-coupon .guide-left { width: 450px; position: relative; height: 600px; }
+        #section-coupon .image-display { width: 100%; height: 100%; position: absolute; top: 0; left: 50%; transform: translateX(-50%); }
+        #section-coupon .step-image { width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; display: none; }
+        #section-coupon .step-image.active { display: block; }
+        #section-coupon .character-illustration { position: absolute; width: 220px; bottom: 30px; left: -30px; z-index: 5; }
+        #section-coupon .guide-right { width: 388px; display: flex; flex-direction: column; align-items: center; gap: 80px; }
+        #section-coupon .step-line { top: 13px; height: 294px; }
+        #section-coupon .step-indicator { margin-bottom: 73px; }
+        #section-coupon .step-indicator:last-child { margin-bottom: 0; }
+        #section-coupon .instruction-item { padding: 0; margin-bottom: 60px; text-align: left; width: 100%; cursor: pointer; color: #999; font-weight: 800; font-size: 18px; line-height: 30px; }
+        
+        /* == SECTION 3: STICKER ATTACHMENT (REDESIGNED) == */
+        #section-sticker .guide-left { width: 434px; display: flex; flex-direction: column; align-items: center; gap: 70px; }
+        #section-sticker .step-line { top: 13px; height: 320px; }
+        #section-sticker .step-indicator { margin-bottom: 80px; }
+        #section-sticker .step-indicator:last-child { margin-bottom: 0; }
+        #section-sticker .step-instructions { width: 363px; }
+        #section-sticker .instruction-item { padding: 30px; cursor: pointer; color: #999; font-weight: 800; font-size: 18px; line-height: 30px; }
+        #section-sticker .instruction-item.active { color: #000; }
+        #section-sticker .instruction-item .speech-bubble { display: none !important; }
+
+        #section-sticker .guide-right { width: 450px; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        #section-sticker .image-display { width: 400px; height: 400px; border-radius: 50%; background-color: #fff; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        #section-sticker .step-image { position: absolute; display: none; }
+        #section-sticker .step-image.active { display: block; }
+        #sticker-image-1 { width: 100%; object-fit: cover; }
+        #sticker-image-2 { width: 100%; height: 100%; object-fit: cover; }
+        #sticker-image-3 { width: 100%; height: 100%; object-fit: cover; }
+        #sticker-image-4 { width: 100%; object-fit: cover;}
+
+        #section-sticker .img-0128-icon {
+            display: none;
+            width: 100%;
+            position: absolute;
+            margin: 0 !important;
+            top: 244.57px;
+            left: 323.14px;
+            max-width: 100%;
+            overflow: hidden;
+            max-height: 100%;
+            object-fit: contain;
+            z-index: 10;
+        }
+        #section-sticker .step-image[data-image-for="3"].active ~ .img-0128-icon,
+        #section-sticker .step-image[data-image-for="4"].active ~ .img-0128-icon {
+            display: block;
+        }
+        
+        #section-app-install .instruction-item.active,
+        #section-coupon .instruction-item.active {
+            background: url(images/Union.svg) no-repeat;
+            background-size: 100% 100%;
+            color: #000;
+        }
+        #section-coupon .instruction-item.active {
+            padding: 20px 30px;
+            box-sizing: border-box;
+        }
+
+
+        /* === 6. VIDEO POPUP MODAL STYLES === */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .video-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            padding: 0;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 1024px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            aspect-ratio: 16 / 9;
+        }
+        .modal-content video {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .close-button {
+            position: absolute;
+            top: -18px;
+            right: -18px;
+            color: #fff;
+            background-color: #000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            line-height: 38px;
+            border: 2px solid #fff;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        .close-button:hover, .close-button:focus {
+            color: #fae100;
+            border-color: #fae100;
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container-wrapper">
+        <!-- HEADER (Shared) -->
+        <header class="header">
+            <div class="header-inner">
+                <div class="logo-container">
+                    <img alt="Symbol" src="images/symbol.png">
+                    <img alt="Logo" src="images/logo.svg">
+                </div>
+                <nav class="nav-menu">
+                    <div class="nav-item">QR알리미란?</div><div class="nav-divider">|</div>
+                    <div class="nav-item active">QR알리미 사용하기</div><div class="nav-divider">|</div>
+                    <div class="nav-item">커뮤니티</div><div class="nav-divider">|</div>
+                    <div class="nav-item">B2B</div>
+                </nav>
+                <img class="menu-icon" alt="Menu" src="images/iconoir_profile-circle.svg">
+            </div>
+        </header>
+
+        <!-- SUB-HEADER (Navigation) -->
+        <div class="sub-header">
+            <div class="sub-header-inner">
+                 <div class="sub-nav-item active" data-target="section-app-install">앱 설치 & 차량번호 등록</div>
+                 <div class="sub-nav-item" data-target="section-coupon">쿠폰 등록방법</div>
+                 <div class="sub-nav-item" data-target="section-sticker">QR스티커 부착방법</div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT AREA (Holds all sections) -->
+        <main class="main-content-area">
+            <!-- GLOBAL TITLE CONTAINER -->
+            <div class="section-title-container">
+                <img alt="Mobile Icon" src="images/icon_mobile.png" style="width:40px; height:40px;">
+                <div class="section-title">QR알리미 사용하기</div>
+            </div>
+
+            <!-- SECTION 1: APP INSTALLATION -->
+            <div id="section-app-install" class="content-section active">
+                <div class="guide-container">
+                    <div class="guide-left">
+                        <div class="guide-title">앱 설치 & 차량번호 등록</div>
+                        <div class="steps-wrapper">
+                            <div class="step-indicators">
+                                <div class="step-line"></div>
+                                <div class="step-indicator" data-step="1">1</div>
+                                <div class="step-indicator" data-step="2">2</div>
+                                <div class="step-indicator" data-step="3">3</div>
+                                <div class="step-indicator" data-step="4">4</div>
+                                <div class="step-indicator" data-step="5">5</div>
+                            </div>
+                            <div class="step-instructions">
+                                <div class="instruction-item" data-step="1"><img src="images/Union.svg" class="speech-bubble">QR스캔후, QR알리미 앱 설치</div>
+                                <div class="instruction-item" data-step="2"><img src="images/Union.svg" class="speech-bubble">QR알리미 앱 실행</div>
+                                <div class="instruction-item" data-step="3"><img src="images/Union.svg" class="speech-bubble">계정연동 로그인</div>
+                                <div class="instruction-item" data-step="4">
+                                    <img src="images/Union.svg" class="speech-bubble" style="height: 60px;">차량등록 화면
+                                    <div class="sub-instructions">
+                                        <div class="sub-instruction-item" data-step="4.1">4-1. 부착용 QR스티커 있을경우</div>
+                                        <div class="sub-instruction-item" data-step="4.2">4-2. 부착용 QR스티커 없을경우</div>
+                                    </div>
+                                </div>
+                                <div class="instruction-item" data-step="5"><img src="images/Union.svg" class="speech-bubble">차량등록 완료 (Main화면)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-right">
+                        <div class="video-link js-video-link" data-video-src="video/qrallimy_install_userguide.mp4">
+                            <span>영상으로 확인하기</span><img alt="video icon" src="images/icon_play.png" style="width:24px; height:24px;">
+                        </div>
+                        <div class="image-display">
+                            <img src="images/image_1841.png" alt="Step 1" class="step-image" data-image-for="1">
+                            <img src="images/image_1842.png" alt="Step 2" class="step-image" data-image-for="2">
+                            <img src="images/image_1843.png" alt="Step 3" class="step-image" data-image-for="3">
+                            <img src="images/image_1846.png" alt="Step 4" class="step-image" data-image-for="4">
+                            <img src="images/image_1844.png" alt="Step 4.1" class="step-image" data-image-for="4.1">
+                            <img src="images/image_1845.png" alt="Step 4.2" class="step-image" data-image-for="4.2">
+                            <img src="images/image_1847.png" alt="Step 5" class="step-image" data-image-for="5">
+                            <b class="image-annotation" data-annotation-for="4.1" id="annotation-4-1">※ 부착용 QR스티커 QR스캔후, 차량번호 연동 등록</b>
+                            <b class="image-annotation" data-annotation-for="4.2" id="annotation-4-2">※ 운전자의 차량번호를 입력해주세요.</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: COUPON REGISTRATION -->
+            <div id="section-coupon" class="content-section">
+                 <div class="guide-container">
+                    <div class="guide-left">
+                        <div class="image-display">
+                            <img src="images/image_1848.png" alt="Step 1: Menu" class="step-image" data-image-for="1">
+                            <img src="images/image_1849.png" alt="Step 2: Coupon Registration" class="step-image" data-image-for="2">
+                            <img src="images/image_1850.png" alt="Step 3: Enter Coupon Number" class="step-image" data-image-for="3">
+                            <img src="images/image_1851.png" alt="Step 4: Check Remaining Days" class="step-image" data-image-for="4">
+                        </div>
+                    </div>
+                    <div class="guide-right">
+                        <div class="guide-title">쿠폰 등록방법</div>
+                        <div class="steps-wrapper">
+                            <div class="step-indicators">
+                                <div class="step-line"></div>
+                                <div class="step-indicator" data-step="1">1</div>
+                                <div class="step-indicator" data-step="2">2</div>
+                                <div class="step-indicator" data-step="3">3</div>
+                                <div class="step-indicator" data-step="4">4</div>
+                            </div>
+                            <div class="step-instructions">
+                                <div class="instruction-item" data-step="1">“메뉴” 클릭</div>
+                                <div class="instruction-item" data-step="2">“쿠폰등록” 클릭</div>
+                                <div class="instruction-item" data-step="3">쿠폰번호 입력</div>
+                                <div class="instruction-item" data-step="4">“잔여일수” 충전확인</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: STICKER ATTACHMENT (REDESIGNED) -->
+            <div id="section-sticker" class="content-section">
+                <div class="guide-container">
+                    <div class="guide-left">
+                        <div class="guide-title">QR스티커 부착방법</div>
+                        <div class="steps-wrapper">
+                            <div class="step-indicators">
+                                <div class="step-line"></div>
+                                <div class="step-indicator" data-step="1">1</div>
+                                <div class="step-indicator" data-step="2">2</div>
+                                <div class="step-indicator" data-step="3">3</div>
+                                <div class="step-indicator" data-step="4">4</div>
+                            </div>
+                            <div class="step-instructions">
+                                <div class="instruction-item" data-step="1">QR인쇄물과 부착용포켓 준비</div>
+                                <div class="instruction-item" data-step="2">부착용 포켓 부착</div>
+                                <div class="instruction-item" data-step="3">QR인쇄물 삽입 (밖에서 QR코드 보이게)</div>
+                                <div class="instruction-item" data-step="4">비고 (차량별 권장 부착위치)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-right">
+                        <div class="video-link js-video-link" data-video-src="video/sticker_userguide.mp4">
+                            <span>영상으로 확인하기</span>
+                            <img alt="video icon" src="images/icon_play.png" style="width:24px; height:24px;">
+                        </div>
+                        <div class="image-display">
+                            <img src="images/image_1852.png"  alt="Step 1: Prepare Sticker and Pocket" class="step-image" id="sticker-image-1" data-image-for="1">
+                            <img src="images/qr_scan_2.png" alt="Step 2: Attach Pocket" class="step-image" id="sticker-image-2" data-image-for="2">
+                            <img src="images/qr_scan_3.png" alt="Step 3: Insert QR Printout" class="step-image" id="sticker-image-3" data-image-for="3">
+                            <img src="images/qr_scan_4.png" alt="Step 4: Recommended Locations" class="step-image" id="sticker-image-4" data-image-for="4">
+                            <img class="img-0128-icon" alt="Additional Overlay Image" src="IMG_0128.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- FOOTER (Shared) -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="company-info">
+                    <div class="info-row">
+                        <div class="info-item">(주)제제컴즈</div><div class="info-item">대표자 : 김준강</div><div>사업자등록번호 : 641-88-00828</div>
+                    </div>
+                    <div>통신판매업신고 : 제2021-성남수정-1335호</div>
+                    <div>13558 경기도 성남시 분당구 성남대로331번길 8 (킨스타워) 20층 9호</div>
+                    <div class="contact-row">
+                        <div class="info-item">T. 070-4252-5571</div><div class="info-item">E. help@jejecomms.com</div><div>F. 031-754-8715</div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div>회사소개</div><div>이용약관</div><div>개인정보처리방침</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- VIDEO POPUP MODAL HTML -->
+    <div id="video-popup" class="video-modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <video id="popup-video-player" controls preload="none">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 1. GLOBAL NAVIGATION LOGIC ---
+            const navLinks = document.querySelectorAll('.sub-nav-item');
+            const sections = document.querySelectorAll('.content-section');
+
+            function showSection(targetId) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('data-target') === targetId);
+                });
+                sections.forEach(section => {
+                    section.classList.toggle('active', section.id === targetId);
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const targetId = link.getAttribute('data-target');
+                    showSection(targetId);
+                });
+            });
+
+            // --- 2. SECTION-SPECIFIC INTERACTIVITY ---
+            
+            function initAppInstallSection() {
+                const section = document.getElementById('section-app-install');
+                if (!section) return;
+                const instructions = section.querySelectorAll('.instruction-item');
+                const subInstructions = section.querySelectorAll('.sub-instruction-item');
+                const indicators = section.querySelectorAll('.step-indicator');
+                const images = section.querySelectorAll('.step-image');
+                const annotations = section.querySelectorAll('.image-annotation');
+
+                function setActiveState(step) {
+                    const mainStep = Math.floor(step);
+                    
+                    [instructions, indicators, images, annotations, subInstructions].forEach(nodeList => 
+                        nodeList.forEach(el => el.classList.remove('active'))
+                    );
+                    
+                    section.querySelector(`.step-indicator[data-step="${mainStep}"]`)?.classList.add('active');
+                    section.querySelector(`.instruction-item[data-step="${mainStep}"]`)?.classList.add('active');
+                    section.querySelector(`.step-image[data-image-for="${step}"]`)?.classList.add('active');
+                    section.querySelector(`.image-annotation[data-annotation-for="${step}"]`)?.classList.add('active');
+                    
+                    if (String(step).includes('.')) { 
+                        section.querySelector(`.sub-instruction-item[data-step="${step}"]`)?.classList.add('active');
+                    }
+                }
+
+                const setupListeners = (elements, isSub) => {
+                    elements.forEach(el => {
+                        el.addEventListener('click', (e) => {
+                            if(isSub) e.stopPropagation();
+                            let step = el.getAttribute('data-step');
+                            setActiveState(parseFloat(step));
+                        });
+                    });
+                };
+
+                setupListeners(instructions, false);
+                setupListeners(subInstructions, true);
+                setupListeners(indicators, false);
+                
+                setActiveState(1);
+            }
+
+            function initCouponSection() {
+                const section = document.getElementById('section-coupon');
+                if (!section) return;
+                const items = section.querySelectorAll('.instruction-item, .step-indicator');
+
+                function setActiveState(step) {
+                    section.querySelectorAll('.instruction-item, .step-indicator, .step-image').forEach(item => 
+                        item.classList.toggle('active', (item.getAttribute('data-step') || item.getAttribute('data-image-for')) === step)
+                    );
+                }
+                
+                items.forEach(item => {
+                    item.addEventListener('click', () => setActiveState(item.getAttribute('data-step')));
+                });
+
+                setActiveState('1');
+            }
+
+            function initStickerSection() {
+                const section = document.getElementById('section-sticker');
+                if (!section) return;
+                const items = section.querySelectorAll('.instruction-item, .step-indicator');
+
+                function setActiveState(step) {
+                    section.querySelectorAll('.instruction-item, .step-indicator, .step-image').forEach(item => 
+                        item.classList.toggle('active', (item.getAttribute('data-step') || item.getAttribute('data-image-for')) === step)
+                    );
+                }
+
+                items.forEach(item => {
+                    item.addEventListener('click', () => setActiveState(item.getAttribute('data-step')));
+                });
+                
+                setActiveState('1');
+            }
+
+            // --- 3. VIDEO POPUP LOGIC ---
+            function initVideoPopup() {
+                const videoLinks = document.querySelectorAll('.js-video-link');
+                const videoPopup = document.getElementById('video-popup');
+                const videoPlayer = document.getElementById('popup-video-player');
+                const closeBtn = videoPopup.querySelector('.close-button');
+
+                if (!videoPopup || !videoPlayer || videoLinks.length === 0) return;
+
+                const openPopup = (videoSrc) => {
+                    videoPlayer.src = videoSrc;
+                    videoPopup.classList.add('active');
+                    videoPlayer.load();
+                    videoPlayer.play();
+                };
+
+                const closePopup = () => {
+                    videoPopup.classList.remove('active');
+                    videoPlayer.pause();
+                    videoPlayer.src = ""; 
+                };
+
+                videoLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const videoSrc = link.dataset.videoSrc;
+                        if (videoSrc) {
+                            openPopup(videoSrc);
+                        }
+                    });
+                });
+                
+                closeBtn.addEventListener('click', closePopup);
+                
+                videoPopup.addEventListener('click', (e) => {
+                    if (e.target === videoPopup) {
+                        closePopup();
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === "Escape" && videoPopup.classList.contains('active')) {
+                        closePopup();
+                    }
+                });
+            }
+            
+            // --- 4. INITIALIZE ALL ---
+            initAppInstallSection();
+            initCouponSection();
+            initStickerSection();
+            initVideoPopup();
+        });
+    </script>
+</body>
+</html>

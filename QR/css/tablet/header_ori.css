@@ -1,0 +1,27 @@
+
+body{font-family: 'NanumSquare', sans-serif;}
+@media (min-width: 641px) and (max-width: 1200px) {
+    .wrapper {
+        max-width: 90%; /* Уменьшим максимальную ширину для экранов этого диапазона */
+    }
+
+    header {
+        max-width: 100%; /* Полная ширина для экранов этого диапазона */
+    }
+
+    .center {
+        height: auto; /* Уберем фиксированную высоту */
+    }
+
+    .header_list {
+        padding: 16px 24px; /* Уменьшим горизонтальные отступы */
+    }
+
+    .header_item {
+        margin-right: 24px; /* Уменьшим отступ между элементами */
+    }
+    
+    .header_link {
+        font-size: 16px; /* Увеличим размер шрифта */
+    }
+}

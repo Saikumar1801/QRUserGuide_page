@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'NeusaNext';
+    src: url(../../fonts/NeusaNextPro-Medium.otf);
+}
+html{
+    overflow-x: hidden;
+}
+body{
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: 0; left: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+header{
+    position: fixed;
+    left: 0;top: 0;
+    z-index: 9999;
+    width:100vw; height: 6vh;
+    background: #fae100;
+    box-shadow: 0 2px 5px rgba(80,80,80,.5);
+}
+.center{
+    margin: 0 auto;
+    width: 100%; height: 8vh;
+}
+header>div>h1{
+    text-align: center;
+    margin-top: 0.8vh
+}
+header>.center>h1 img{
+    height: 4vh; 
+}
+main{
+    width: 100%;
+}
+.term{
+    margin: 100px auto;
+    width: 80%;
+}

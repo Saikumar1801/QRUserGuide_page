@@ -1,0 +1,99 @@
+<!-- App Installation Guide Section -->
+<div class="main_div">
+  <div class="main_div_box">
+    <div class="main_div_box_2">
+      <div class="main_div_container">
+        <div class="app_config_box">
+          <div class="app_video_check">
+            <button id="videoButton_1" class="video_test video_btn">
+              <p>영상으로 확인하기</p>
+              <img src="images/icon_play.png" alt="app_video_check" />
+            </button>
+          </div>
+          <!-- Video Modal for App Install Guide -->
+          <div id="videoModal_1" class="video-modal">
+            <div class="video-modal-content">
+              <span id="closeModal_1" class="close-btn">×</span>
+              <div id="videoNotAvailable1" class="video-not-available">
+                The video has not been prepared yet.
+              </div>
+              <video controls id="video_1" width="100%">
+                <source src="video/qrallimy_install_userguide.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="left_right_div_container">
+        <!-- Left side: The steps -->
+        <div class="left_div_box">
+          <div class="div_numbers">
+            <div class="div_11">1</div>
+            <div class="div_12"></div>
+            <div class="div_11">2</div>
+            <div class="div_12"></div>
+            <div class="div_11">3</div>
+            <div class="div_12"></div>
+            <div class="div_11">4</div>
+            <div class="div_12"></div>
+            <div class="div_11">5</div>
+          </div>
+          <div class="guide_div_headers">
+            <h2 class="app_config_text">앱 설치방법</h2>
+            <!-- Step 1 -->
+            <div class="guide_div_text" id="step1" data-image="images/app_install.png">
+              QR스캔후, QR알리미 앱 설치
+            </div>
+            <!-- Step 2 -->
+            <div class="guide_div_text" id="step2" data-image="images/ios_app.png">
+              QR알리미 앱 실행
+            </div>
+            <!-- Step 3 -->
+            <div class="guide_div_text" id="step3" data-image="images/signin_method.png">
+              원하는 계정으로 연동 로그인 진행
+            </div>
+            <!-- Step 4 -->
+            <div class="guide_div_text" id="step4" data-image="images/car_plate_registration.png">
+              초기화면 차량번호 입력
+            </div>
+            <!-- Step 5 -->
+            <div class="guide_div_text" id="step5" data-image="images/qr_code_creation.png">
+              QR코드 자동생성
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side: The image viewer -->
+        <div class="right_div_box">
+          <div class="image_container">
+            <!-- This is the single image that will be changed by JavaScript -->
+            <img
+              id="stepImage"
+              class="guide_phone_install"
+              alt="guide_phone_install"
+              src="images/app_install.png"
+            />
+          </div>
+          <div id="qrDownloadCodes" class="dowload_apps">
+            <a href="https://play.google.com/store/apps/details?id=com.jejecomms.qrparking&pli=1" target="_blank" rel="noopener">
+              <img
+                class="guide_phone_run"
+                alt="download_QR_PlayMarket"
+                src="images/download_QR_PlayMarket.png"
+              />
+            </a>
+            <a href="https://apps.apple.com/kr/app/qralimy/id1628992038" target="_blank" rel="noopener">
+              <img
+                class="guide_phone_run"
+                alt="download_QR_AppStore"
+                src="images/download_QR_AppStore.png"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+@media only screen and (max-width: 959px) {
+  footer > .footerTop > .utilBtm > dd {
+    position: relative;
+    padding-right: 10px;
+  }
+  footer > section > .footerBottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  footer > section > .footerBottom > p {
+    font-size: 14px;
+    line-height: 26px;
+  }
+  footer > section > .footerBottom > .contect {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+footer {
+  width: 100vw;
+  color: #777575;
+}
+footer > .footerTop > .utilBtm {
+  margin: 0 auto 10px auto;
+  width: 90%;
+  display: flex;
+  align-items: center;
+}
+footer > .footerTop > .utilBtm > dd {
+  position: relative;
+  padding-right: 20px;
+}
+footer > .footerTop > .utilBtm > dd > a {
+  color: #a1a1a1;
+}
+
+footer > section {
+  margin: 0 auto;
+  width: 100vw;
+  background-color: #ebebeb;
+}
+footer > section > .footerBottom {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+footer > section > .footerBottom > p {
+  font-size: 16px;
+  line-height: 26px;
+}
+footer > section > .footerBottom > p > span {
+  padding-left: 10px;
+  margin-left: 10px;
+  border-left: 1px solid #a1a1a1;
+}
+footer > section > .footerBottom > .contect {
+  margin: 10px 0;
+  display: flex;
+}
+footer > section > .footerBottom > .contect > p {
+  margin-right: 42px;
+  line-height: 30px;
+}
+footer > section > .footerBottom > .contect > p:first-of-type {
+  font-weight: bold;
+  font-size: 22px;
+}
+footer > section > .footerBottom > .contect > p > span {
+  margin-right: 6px;
+}
+.jeje {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer img {
+  margin: 10px 0;
+  width: 230px;
+}

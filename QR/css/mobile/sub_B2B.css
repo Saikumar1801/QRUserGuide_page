@@ -1,0 +1,261 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+* {
+    word-wrap: nowrap;
+}
+
+.wrapper {
+    max-width: 1440px;
+}
+
+.body {
+    font-family: 'NanumGothic', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: normal;
+    color: #333;
+}
+
+.main {
+    margin-top: 98px;
+}
+
+.menu4 {
+    color: black;
+}
+
+h2 {
+    text-shadow: rgb(192, 192, 192) 3px 3px 3px;
+}
+
+.intro_background {
+    background-color: #FAE100;
+    border-bottom-left-radius: 150px;
+    box-shadow: 0px 8px 10px -6px #666;
+    height: 870px;
+}
+
+.intro_caption {
+    position: absolute;
+    right: 60px;
+    bottom: -20px;
+    text-align: center;
+}
+.caption_title {
+    width: 130px;
+    height: fit-content;
+    font-size: 25px;
+    font-weight: 600;
+    border-left: solid 1px #000;
+    border-right: solid 1px #000;
+    margin: auto;
+    /* padding-left: 10px; */
+    margin-bottom: 10px;
+}
+.caption_text p {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.intro_wrap {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    padding: 40px 0 0;
+}
+
+.intro_img {
+    max-width: 430px;
+    text-align: center;
+}
+.intro_img img {
+    width: 150px;
+}
+
+.intro_side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.B2B_logo {
+    width: 200px;
+    margin-bottom: 50px;
+}
+
+.intro_text {
+    margin-bottom: 30px;
+    padding: 0 30px;
+    text-align: center;
+}
+
+.intro_text h1 {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.intro_text p {
+    width: 190px;
+    text-align: left;
+    line-height: 1.3;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 80%;
+    margin: auto;
+}
+
+.intro_btn {
+    display: flex;
+    flex-direction: column;
+    /* margin-right: 90px; */
+}
+
+.intro_btn a {
+    display: flex;
+    align-items: center;
+    padding: 4px 50px;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.intro_btn a:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    transition: all 0.2s;
+}
+
+.btn_login {
+    background-color: #000;
+    color: #fff;
+}
+.btn_login:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.btn_login img {
+    height: 40px;
+}
+
+.btn_mail {
+    background-color: #fff;
+    color: #333;
+}
+.btn_mail:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.intro_btn a img {
+    margin-right: 20px;
+}
+
+.info_ex {
+    /* width: 1024px; */
+    margin: auto;
+    padding: 100px 0;
+}
+
+.ex_title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ex_title h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.ex_subTitle {
+    width: 260px;
+    text-align: center;
+    margin: auto;
+    padding: 40px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #999;
+}
+.ex_subTitle p {
+
+    font-size: 12px;
+}
+
+.ex_wrap {
+    margin: 30px 0;
+    padding: 0 10px;
+}
+
+.ex_top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.ex_top_line {
+    width: 280px;
+    height: 1px;
+    background-color: #ddd;
+    margin: 40px 0;
+}
+
+.ex_text {
+    margin-top: 30px;
+}
+
+.ex_text h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.ex_text ul li {
+    margin-bottom: 5px;
+}
+
+.ex_bottom_line {
+    width: 280px;
+    height: 1px;
+    background-color: #ddd;
+    margin: auto;
+}
+
+.ex3 {
+    width: 280px;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.ex_text_list li {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.info_bottom {
+    padding-bottom: 50px;
+}
+
+.info_bottom img {
+    width: 740px;
+}
+
+.info_bottom_caption {
+    font-size: 14px;
+    text-align: end;
+    padding:20px;
+}
