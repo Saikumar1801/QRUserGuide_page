@@ -1,58 +1,107 @@
-$(document).ready(function () {
+// --- 1. GLOBAL NAVIGATION LOGIC ---
+const navLinks = document.querySelectorAll('.sub-nav-item');
+const sections = document.querySelectorAll('.content-section');
 
-    // --- Section 1: App Installation Guide ---
-    $('.guide_div_text').click(function () {
-        // Remove 'active' class from all steps in this section
-        $('.guide_div_text').removeClass('active');
-        // Add 'active' class to the clicked step
-        $(this).addClass('active');
+function showSection(targetId) {
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('data-target') === targetId);
+    });
+    sections.forEach(section => {
+        section.classList.toggle('active', section.id === targetId);
+    });
+}
 
-        // Get the new image path from the data attribute
-        let newImageSrc = $(this).data('image');
-        // Update the image source
-        $('#stepImage').attr('src', newImageSrc);
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        const targetId = link.getAttribute('data-target');
+        showSection(targetId);
+    });
+});
 
-        // Special handling for the first step to show download QR codes
-        if ($(this).attr('id') === 'step1') {
-            $('#qrDownloadCodes').show();
-        } else {
-            $('#qrDownloadCodes').hide();
+// --- 2. SECTION-SPECIFIC INTERACTIVITY ---
+
+function initAppInstallSection() {
+    const section = document.getElementById('section-app-install');
+    if (!section) return;
+    const instructions = section.querySelectorAll('.instruction-item');
+    const subInstructions = section.querySelectorAll('.sub-instruction-item');
+    const indicators = section.querySelectorAll('.step-indicator');
+    const images = section.querySelectorAll('.step-image');
+    const annotations = section.querySelectorAll('.image-annotation');
+
+    function setActiveState(step) {
+        const mainStep = Math.floor(step);
+        
+        [instructions, indicators, images, annotations, subInstructions].forEach(nodeList => 
+            nodeList.forEach(el => el.classList.remove('active'))
+        );
+        
+        section.querySelector(`.step-indicator[data-step="${mainStep}"]`)?.classList.add('active');
+        section.querySelector(`.instruction-item[data-step="${mainStep}"]`)?.classList.add('active');
+        section.querySelector(`.step-image[data-image-for="${step}"]`)?.classList.add('active');
+        section.querySelector(`.image-annotation[data-annotation-for="${step}"]`)?.classList.add('active');
+        
+        if (String(step).includes('.')) { 
+            section.querySelector(`.sub-instruction-item[data-step="${step}"]`)?.classList.add('active');
         }
+    }
+
+    const setupListeners = (elements, isSub) => {
+        elements.forEach(el => {
+            el.addEventListener('click', (e) => {
+                if(isSub) e.stopPropagation();
+                let step = el.getAttribute('data-step');
+                setActiveState(parseFloat(step));
+            });
+        });
+    };
+
+    setupListeners(instructions, false);
+    setupListeners(subInstructions, true);
+    setupListeners(indicators, false);
+    
+    setActiveState(1);
+}
+
+function initCouponSection() {
+    const section = document.getElementById('section-coupon');
+    if (!section) return;
+    const items = section.querySelectorAll('.instruction-item, .step-indicator');
+
+    function setActiveState(step) {
+        section.querySelectorAll('.instruction-item, .step-indicator, .step-image').forEach(item => 
+            item.classList.toggle('active', (item.getAttribute('data-step') || item.getAttribute('data-image-for')) === step)
+        );
+    }
+    
+    items.forEach(item => {
+        item.addEventListener('click', () => setActiveState(item.getAttribute('data-step')));
     });
 
-    // Set the first step as active by default
-    $('.guide_div_text#step1').addClass('active').trigger('click'); // .trigger('click') handles the QR code visibility on load
+    setActiveState('1');
+}
 
-    // --- Section 2: Coupon Usage Guide ---
-    $('.div_23').click(function () {
-        // Remove 'active' class from all steps in this section
-        $('.div_23').removeClass('active');
-        // Add 'active' class to the clicked step
-        $(this).addClass('active');
+function initStickerSection() {
+    const section = document.getElementById('section-sticker');
+    if (!section) return;
+    const items = section.querySelectorAll('.instruction-item, .step-indicator');
 
-        // Get the new image path from the data attribute
-        let newImageSrc = $(this).data('image');
-        // Update the image source
-        $('#levelImage').attr('src', newImageSrc);
+    function setActiveState(step) {
+        section.querySelectorAll('.instruction-item, .step-indicator, .step-image').forEach(item => 
+            item.classList.toggle('active', (item.getAttribute('data-step') || item.getAttribute('data-image-for')) === step)
+        );
+    }
+
+    items.forEach(item => {
+        item.addEventListener('click', () => setActiveState(item.getAttribute('data-step')));
     });
+    
+    setActiveState('1');
+}
 
-    // Set the first step as active by default
-    $('.div_23#level1').addClass('active');
-
-    // --- Section 3: QR Sticker Guide ---
-    $('.qr_sticker_images').click(function () {
-        // Remove 'active' class from all steps in this section
-        $('.qr_sticker_images').removeClass('active');
-        // Add 'active' class to the clicked step
-        $(this).addClass('active');
-
-        // Get the new image path from the data attribute
-        let newImageSrc = $(this).data('image');
-        // Update the image source (Note: the image ID in the HTML is 'stickerImage')
-        $('#stickerImage').attr('src', newImageSrc); 
-    });
-
-    // Set the first step as active by default
-    $('.qr_sticker_images#grade1').addClass('active');
-
+// --- 3. INITIALIZE ALL SECTIONS ---
+document.addEventListener('DOMContentLoaded', function() {
+    initAppInstallSection();
+    initCouponSection();
+    initStickerSection();
 });

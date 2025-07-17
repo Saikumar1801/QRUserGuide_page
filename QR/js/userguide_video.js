@@ -1,34 +1,58 @@
-$(document).ready(function () {
-  function setupVideoModal(buttonId, modalId, videoId) {
-    const modal = $(modalId);
-    const video = $(videoId)[0];
+// --- VIDEO POPUP LOGIC ---
+function initVideoPopup() {
+    const videoLinks = document.querySelectorAll('.js-video-link');
+    const videoPopup = document.getElementById('video-popup');
+    const modalContent = videoPopup.querySelector('.modal-content');
+    const videoPlayer = document.getElementById('popup-video-player');
+    const closeBtn = videoPopup.querySelector('.close-button');
+    const playBtn = videoPopup.querySelector('.play-button');
 
-    $(buttonId).on("click", function () {
-      if (video) {
-        video.currentTime = 0;
-        video.pause();
-      }
-      modal.show();
+    if (!videoPopup || !videoPlayer || videoLinks.length === 0) return;
+
+    const openPopup = (videoSrc) => {
+        videoPlayer.src = videoSrc;
+        videoPopup.classList.add('active');
+        modalContent.classList.add('video-not-started');
+        videoPlayer.load();
+    };
+
+    const closePopup = () => {
+        videoPopup.classList.remove('active');
+        videoPlayer.pause();
+        videoPlayer.currentTime = 0;
+        videoPlayer.src = "";
+    };
+
+    const startPlayback = () => {
+        modalContent.classList.remove('video-not-started');
+        videoPlayer.play();
+    };
+
+    videoLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const videoSrc = link.dataset.videoSrc;
+            if (videoSrc) {
+                openPopup(videoSrc);
+            }
+        });
     });
-
-    modal.find(".close-btn").on("click", function () {
-      modal.hide();
-      if (video) {
-        video.pause();
-      }
-    });
-
-    $(window).on("click", function (event) {
-      if ($(event.target).is(modal)) {
-        modal.hide();
-        if (video) {
-          video.pause();
+    
+    playBtn.addEventListener('click', startPlayback);
+    closeBtn.addEventListener('click', closePopup);
+    
+    videoPopup.addEventListener('click', (e) => {
+        if (e.target === videoPopup) {
+            closePopup();
         }
-      }
     });
-  }
 
-  setupVideoModal("#videoButton_1", "#videoModal_1", "#video_1");
-  setupVideoModal("#videoButton_2", "#videoModal_2", "#video_2");
-  setupVideoModal("#videoButton_3", "#videoModal_3", "#video_3");
-});
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && videoPopup.classList.contains('active')) {
+            closePopup();
+        }
+    });
+}
+
+// Initialize video popup
+document.addEventListener('DOMContentLoaded', initVideoPopup);
