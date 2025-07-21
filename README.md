@@ -1,5 +1,5 @@
 # Task 4:QRUserGuide_page
-you'll need to download the following files from GitHub:
+You'll need to download the following files from this :
 **HTML**
 `/QR/QRUserGuide/index.html`
 **CSS**
