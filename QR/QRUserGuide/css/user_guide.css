@@ -182,7 +182,7 @@
         .guide-title {
             border-radius: 99px;
             background-color: #fae100;
-            padding: 12px 32px;
+            padding: 30px 32px;
             font-size: 24px;
             font-weight: 800;
             color: #000;
@@ -236,7 +236,7 @@
             background-color: #fff;
             display: flex;
             align-items: center;
-            padding: 10px 20px;
+            padding: 30px 20px;
             gap: 10px;
             color: #999;
             font-size: 18px;
@@ -246,7 +246,7 @@
         /* 6. SECTION-SPECIFIC STYLES */
         /* == SECTION 1: APP INSTALL == */
         #section-app-install .guide-left { width: 388px; display: flex; flex-direction: column; align-items: center; gap: 70px; }
-        #section-app-install .step-line { top: 38px; height: 500px; }
+        #section-app-install .step-line { top: 38px; height: 450px; }
         #section-app-install .step-indicator { position: absolute; left: 0; }
         #section-app-install .step-indicator[data-step="1"] { top: 35px; }
         #section-app-install .step-indicator[data-step="2"] { top: 120px; }
@@ -600,7 +600,7 @@
         
         /* 9. QR DOWNLOAD COMPONENT */
         #qr-downloads-wrapper {
-            position: absolute; top: -65px; right: -305px; z-index: 5;
+            position: absolute; top: -105px; right: -305px; z-index: 5;
             display: none; flex-direction: row; align-items: flex-start; gap: 15px;
         }
         #section-app-install .step-image[data-image-for="1"].active ~ #qr-downloads-wrapper {
