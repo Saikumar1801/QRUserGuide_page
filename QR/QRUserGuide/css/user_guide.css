@@ -252,7 +252,7 @@
         #section-app-install .step-indicator[data-step="2"] { top: 120px; }
         #section-app-install .step-indicator[data-step="3"] { top: 215px; }
         #section-app-install .step-indicator[data-step="4"] { top: 300px; }
-        #section-app-install .step-indicator[data-step="5"] { top: 520px; }
+        #section-app-install .step-indicator[data-step="5"] { top: 460px; }
         #section-app-install .instruction-item { 
             position: relative; 
             line-height: 30px; 
@@ -263,7 +263,7 @@
             padding: 30px 30px;
             width: 100%;
         }
-        #section-app-install .sub-instructions { padding-left: 15px; margin-top: 10px; }
+        #section-app-install .sub-instructions { padding-left: 0px; margin-top: 10px; }
         
         #section-app-install .instruction-item.active:not([data-step="4"]) {
             color: #000;
